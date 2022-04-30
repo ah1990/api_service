@@ -27,9 +27,9 @@ class Api::V1::StocksController < Api::V1::ApplicationController
   end
 
   def destroy
-    @stock.update(deleted_at: Time.current)
+    @stock.update!(deleted_at: Time.current)
 
-    render json: { message: '' }, status: :ok
+    render json: { message: "Stock with id: #{params[:id]} successfully deleted" }, status: :ok
   end
 
   private
@@ -40,13 +40,6 @@ class Api::V1::StocksController < Api::V1::ApplicationController
     raise ActiveRecord::RecordNotFound, "Stock with id: #{params[:id]} doesn't exists." unless @stock
 
   rescue ActiveRecord::RecordNotFound => e
-    render_error(:stock, [e], :unprocessable_entity)
-  end
-
-
-  protected
-
-  def render_error(entity, messages, status)
-    render json: { entity: entity, errors: messages }, status: status
+    render_error(:stock.capitalize, [e.message], :unprocessable_entity)
   end
 end
