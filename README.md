@@ -42,3 +42,9 @@ curl -X PATCH  http://127.0.0.1:3000/api/v1/stocks/:id -H "Content-Type: applica
 ```
 curl -X DELETE  http://127.0.0.1:3000/api/v1/stocks/:id -H "Content-Type: application/json"'
 ```
+
+# Run test
+
+```
+rspec spec/
+```
